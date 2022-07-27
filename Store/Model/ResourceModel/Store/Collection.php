@@ -1,6 +1,6 @@
 <?php
 
-namespace Alexandr\Store\Model\ResourceModel\ResourceModel\Store;
+namespace Alexandr\Store\Model\ResourceModel\Store;
 
 use Alexandr\Store\Model\Store;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
