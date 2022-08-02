@@ -13,7 +13,7 @@ interface StoreRepositoryInterface
      * @param int $id
      * @return StoreInterface
      */
-    public function get(int $id): StoreInterface;
+    public function get(int $id, int $storeView_id = null): StoreInterface;
 
     /**
      * @param SearchCriteriaInterface $searchCriteria
@@ -31,6 +31,11 @@ interface StoreRepositoryInterface
      * @param StoreInterface $workingHours
      * @return bool
      */
-    public function delete(StoreInterface $workingHours): bool;
+    public function delete(StoreInterface $workingHours): void;
 
+    /**
+     * @param int $store_id
+     * @return void
+     */
+    public function deleteById(int $store_id) : void;
 }

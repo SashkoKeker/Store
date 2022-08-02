@@ -12,11 +12,10 @@ class Store extends AbstractModel implements StoreInterface
         $this->_init('Alexandr\Store\Model\ResourceModel\Store');
     }
 
-    public function getId(): string
+    public function getId()
     {
         return $this->getData(StoreInterface::ID);
     }
-
 
     public function getName(): string
     {
@@ -35,7 +34,7 @@ class Store extends AbstractModel implements StoreInterface
 
     public function setDescription(?string $description): void
     {
-        $this->setData(StoreInterface::NAME, $description);
+        $this->setData(StoreInterface::DESCRIPTION, $description);
     }
 
     public function getImage(): string
@@ -45,7 +44,7 @@ class Store extends AbstractModel implements StoreInterface
 
     public function setImage(?string $image): void
     {
-        $this->setData(StoreInterface::NAME, $image);
+        $this->setData(StoreInterface::IMAGE, $image);
     }
 
     public function getAddress(): string
@@ -55,7 +54,7 @@ class Store extends AbstractModel implements StoreInterface
 
     public function setAddress(?string $address): void
     {
-        $this->setData(StoreInterface::NAME, $address);
+        $this->setData(StoreInterface::ADDRESS, $address);
     }
 
     public function getSchedule(): string
@@ -65,7 +64,7 @@ class Store extends AbstractModel implements StoreInterface
 
     public function setSchedule(?string $schedule): void
     {
-        $this->setData(StoreInterface::NAME, $schedule);
+        $this->setData(StoreInterface::SCHEDULE, $schedule);
     }
 
     public function getLongitude(): string
@@ -75,7 +74,7 @@ class Store extends AbstractModel implements StoreInterface
 
     public function setLongitude(?string $longitude): void
     {
-        $this->setData(StoreInterface::NAME, $longitude);
+        $this->setData(StoreInterface::LONGITUDE, $longitude);
     }
 
     public function getLatitude(): string
@@ -85,6 +84,6 @@ class Store extends AbstractModel implements StoreInterface
 
     public function setLatitude(?string $latitude): void
     {
-        $this->setData(StoreInterface::NAME, $latitude);
+        $this->setData(StoreInterface::LATITUDE, $latitude);
     }
 }

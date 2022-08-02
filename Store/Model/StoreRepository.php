@@ -33,17 +33,12 @@ class StoreRepository implements StoreRepositoryInterface
         $this->searchResultInterfaceFactory = $searchResultInterfaceFactory;
     }
 
-
-    public function get(int $id): StoreInterface
+    public function get(int $id, int $storeView_id = null): StoreInterface
     {
-        $object = $this->storeFactory->create();
-        $this->storeResource->load($object, $id);
-        if (! $object->getId()) {
-            throw new NoSuchEntityException(__('Unable to find entity with ID "%1"', $id));
-        }
-        return $object;
+        $store = $this->storeFactory->create();
+        $this->storeResource->load($store, $id);
+        return $store;
     }
-
 
     public function getList(SearchCriteriaInterface $searchCriteria): StoreSearchResultInterface
     {
@@ -72,17 +67,16 @@ class StoreRepository implements StoreRepositoryInterface
     {
         $this->storeResource->save($store);
         return $store;
-
     }
 
-    public function delete(StoreInterface $workingHours): bool
+    public function delete(StoreInterface $store) : void
     {
-        try {
-            $this->storeResource->delete($workingHours);
-        } catch (\Exception $e) {
-            throw new StateException(__('Unable to remove entity #%1', $workingHours->getId()));
-        }
-        return true;
+        $this->storeResource->delete($store);
+    }
 
+    public function deleteById(int $store_id): void
+    {
+        $store = $this->get($store_id);
+        $this->delete($store);
     }
 }
