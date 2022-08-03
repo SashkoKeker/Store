@@ -37,7 +37,7 @@ class Store extends AbstractModel implements StoreInterface
         $this->setData(StoreInterface::DESCRIPTION, $description);
     }
 
-    public function getImage(): string
+    public function getImage(): ?string
     {
         return $this->getData(StoreInterface::IMAGE);
     }

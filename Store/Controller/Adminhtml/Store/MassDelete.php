@@ -3,6 +3,7 @@
 namespace Alexandr\Store\Controller\Adminhtml\Store;
 
 use Alexandr\Store\Api\Data\StoreInterfaceFactory;
+use Alexandr\Store\Model\ResourceModel\Store\CollectionFactory;
 use Alexandr\Store\Api\StoreRepositoryInterface;
 use Magento\Backend\App\Action;
 use Magento\Ui\Component\MassAction\Filter;

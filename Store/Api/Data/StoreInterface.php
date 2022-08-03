@@ -45,7 +45,7 @@ interface StoreInterface
     /**
      * @return string
      */
-    public function getImage(): string;
+    public function getImage(): ?string;
 
     /**
      * @param string|null $image

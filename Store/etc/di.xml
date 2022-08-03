@@ -2,19 +2,21 @@
     <preference for="Alexandr\Store\Api\Data\StoreInterface" type="Alexandr\Store\Model\Store"/>
     <preference for="Alexandr\Store\Api\StoreRepositoryInterface" type="Alexandr\Store\Model\StoreRepository"/>
     <preference for="Alexandr\Store\Api\StoreSearchResultInterface" type="Alexandr\Store\Model\StoreSearchResult"/>
-    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
-        <arguments>
-            <argument name="collections" xsi:type="array">
-                <item name="store_store_data_source" xsi:type="string">Alexandr\Store\Model\ResourceModel\Store\Collection</item>
-            </argument>
-        </arguments>
-    </type>
-    <virtualType name="Alexandr\Store\Model\ResourceModel\Store\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+
+    <virtualType name="Alexandr\Store\Model\ResourceModel\Store\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">alexandr_store</argument>
             <argument name="resourceModel" xsi:type="string">Alexandr\Store\Model\ResourceModel\Store</argument>
         </arguments>
     </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="store_store_data_source" xsi:type="string">Alexandr\Store\Model\ResourceModel\Store\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
 
     <virtualType name="Alexandr\Store\Model\ImageUploader" type="Magento\Catalog\Model\ImageUploader">
         <arguments>
