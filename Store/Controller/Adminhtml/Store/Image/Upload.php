@@ -33,7 +33,7 @@ class Upload extends Action
 
     public function execute()
     {
-        $imageId = $this->_request->getParam('param_name', 'store_image');
+        $imageId = $this->_request->getParam('param_name', 'image');
         try {
             $result = $this->imageUploader->saveFileToTmpDir($imageId);
         } catch (Exception $e) {

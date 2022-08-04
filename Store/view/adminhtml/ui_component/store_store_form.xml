@@ -104,8 +104,8 @@
                 <dataScope>description</dataScope>
             </settings>
         </field>
-    </fieldset>
-    <field formElement="imageUploader" name="store_image" sortOrder="40" >
+
+    <field formElement="imageUploader" name="image" sortOrder="40" >
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
                 <item name="source" xsi:type="string">store</item>
@@ -203,4 +203,5 @@
 <!--            </multiselect>-->
 <!--        </formElements>-->
 <!--    </field>-->
+    </fieldset>
 </form>
