@@ -48,10 +48,10 @@ interface StoreInterface
     public function getImage(): ?string;
 
     /**
-     * @param string|null $image
-     * @return void
+     * @param $image
+     * @return StoreInterface
      */
-    public function setImage(?string $image): void;
+    public function setImage($image): StoreInterface;
 
     /**
      * @return string

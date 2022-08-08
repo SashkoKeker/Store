@@ -3,6 +3,7 @@
 namespace Alexandr\Store\Model;
 
 use Alexandr\Store\Api\Data\StoreInterface;
+
 use Magento\Framework\Model\AbstractModel;
 
 class Store extends AbstractModel implements StoreInterface
@@ -37,14 +38,22 @@ class Store extends AbstractModel implements StoreInterface
         $this->setData(StoreInterface::DESCRIPTION, $description);
     }
 
+    /**
+     * @return string|null
+     */
     public function getImage(): ?string
     {
         return $this->getData(StoreInterface::IMAGE);
     }
 
-    public function setImage(?string $image): void
+    /**
+     * @param string|null $image
+     * @return StoreInterface
+     */
+    public function setImage($image): StoreInterface
     {
-        $this->setData(StoreInterface::IMAGE, $image);
+        $this->setData(self::IMAGE, $image);
+        return $this;
     }
 
     public function getAddress(): string

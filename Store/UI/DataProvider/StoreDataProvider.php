@@ -13,14 +13,33 @@ use Magento\Ui\DataProvider\ModifierPoolDataProvider;
 
 class StoreDataProvider extends ModifierPoolDataProvider
 {
+    /**
+     * @var Collection
+     */
     protected $collection;
-
+    /**
+     * @var array
+     */
     private $loadedData = [];
-
+    /**
+     * @var StoreManagerInterface
+     */
     private $storeManager;
-
+    /**
+     * @var RequestInterface
+     */
     private $request;
 
+    /**
+     * @param $name
+     * @param $primaryFieldName
+     * @param $requestFieldName
+     * @param CollectionFactory $collectionFactory
+     * @param StoreManagerInterface $storeManager
+     * @param RequestInterface $request
+     * @param array $meta
+     * @param array $data
+     */
     public function __construct(
         $name,
         $primaryFieldName,
@@ -37,6 +56,10 @@ class StoreDataProvider extends ModifierPoolDataProvider
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
 
+    /**
+     * @return array
+     * @throws NoSuchEntityException
+     */
     public function getData() :array
     {
         if (!empty($this->loadedData)) {
