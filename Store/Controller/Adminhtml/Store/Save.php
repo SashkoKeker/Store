@@ -62,7 +62,7 @@ class Save extends Action
         $store->setName($data['name']);
         $store->setDescription($data['description']);
         $store->setAddress($data['address']);
-        //$store->setUrl($data['url_key']);
+        $store->setUrl($data['store_url_key']);
         $store->setLatitude($data['latitude']);
         $store->setLongitude($data['longitude']);
         $store = $this->setImage($data, $store);

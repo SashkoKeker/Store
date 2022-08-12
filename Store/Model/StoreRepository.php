@@ -5,6 +5,7 @@ namespace Alexandr\Store\Model;
 use Alexandr\Store\Api\Data\StoreInterface;
 use Alexandr\Store\Api\StoreRepositoryInterface;
 use Alexandr\Store\Api\StoreSearchResultInterface;
+use Alexandr\Store\Api\Data\StoreInterfaceFactory;
 use Alexandr\Store\Model\ResourceModel\Store\CollectionFactory;
 use Alexandr\Store\Model\ResourceModel\Store as StoreResource;
 use Magento\Framework\Api\SearchCriteriaInterface;
@@ -12,25 +13,44 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Alexandr\Store\Model\StoreFactory;
 use Alexandr\Store\Api\StoreSearchResultInterfaceFactory;
 use Magento\Framework\Exception\StateException;
+use Magento\Framework\Event\ManagerInterface as EventManager;
 
 
 class StoreRepository implements StoreRepositoryInterface
 {
+    /**
+     * @var CollectionFactory
+     */
     private CollectionFactory $collectionFactory;
+    /**
+     * @var StoreResource
+     */
     private StoreResource $storeResource;
-    private StoreFactory $storeFactory;
+    /**
+     * @var StoreInterfaceFactory
+     */
+    private $storeFactory;
+    /**
+     * @var StoreSearchResultInterfaceFactory
+     */
     private StoreSearchResultInterfaceFactory $searchResultInterfaceFactory;
+    /**
+     * @var EventManager
+     */
+    private $eventManager;
 
     public function __construct(
         StoreFactory $storeFactory,
         CollectionFactory $collectionFactory,
         StoreResource  $storeResource,
-        StoreSearchResultInterfaceFactory $searchResultInterfaceFactory
+        StoreSearchResultInterfaceFactory $searchResultInterfaceFactory,
+        EventManager $eventManager
     ) {
         $this->storeFactory = $storeFactory;
         $this->collectionFactory = $collectionFactory;
         $this->storeResource = $storeResource;
         $this->searchResultInterfaceFactory = $searchResultInterfaceFactory;
+        $this->eventManager = $eventManager;
     }
 
     public function get(int $id, int $storeView_id = null): StoreInterface
@@ -65,6 +85,7 @@ class StoreRepository implements StoreRepositoryInterface
      */
     public function save(StoreInterface $store): StoreInterface
     {
+        $this->eventManager->dispatch('store_store_save_before', ['store' => $store]);
         $this->storeResource->save($store);
         return $store;
     }
@@ -79,4 +100,16 @@ class StoreRepository implements StoreRepositoryInterface
         $store = $this->get($store_id);
         $this->delete($store);
     }
+
+    /**
+     * @param string $urlKey
+     * @return StoreInterface
+     */
+    public function getByUrlKey(string $urlKey): StoreInterface
+    {
+        $collection = $this->collectionFactory->create();
+        $collection->addFieldToFilter(StoreInterface::STORE_URL_KEY , $urlKey);
+        return $collection->getLastItem();
+    }
+
 }

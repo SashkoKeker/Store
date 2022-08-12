@@ -105,81 +105,96 @@
             </settings>
         </field>
 
-    <field formElement="imageUploader" name="image" sortOrder="40" >
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="source" xsi:type="string">store</item>
-            </item>
-        </argument>
-        <settings>
-            <elementTmpl>ui/form/element/uploader/image</elementTmpl>
-            <dataType>string</dataType>
-            <label translate="true">Image</label>
-            <visible>true</visible>
-            <validation>
-                <rule name="required-entry" xsi:type="boolean">false</rule>
-            </validation>
-        </settings>
-        <formElements>
-            <imageUploader>
-                <settings>
-                    <required>false</required>
-                    <uploaderConfig>
-                        <param xsi:type="url" name="url" path="store/store_image/upload"/>
-                    </uploaderConfig>
-                    <previewTmpl>Alexandr_Store/preview</previewTmpl>
-                    <openDialogTitle>Media Gallery</openDialogTitle>
-                    <allowedExtensions>jpg jpeg gif png</allowedExtensions>
-                    <maxFileSize>4194304</maxFileSize>
-                </settings>
-            </imageUploader>
-        </formElements>
-    </field>
-    <field name="address" sortOrder="50" formElement="input">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="source" xsi:type="string">store</item>
-            </item>
-        </argument>
-        <settings>
-            <validation>
-                <rule name="required-entry" xsi:type="boolean">true</rule>
-            </validation>
-            <dataType>text</dataType>
-            <label translate="true">Address</label>
-            <dataScope>address</dataScope>
-        </settings>
-    </field>
-    <field name="longitude" sortOrder="70" formElement="input">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="source" xsi:type="string">store</item>
-            </item>
-        </argument>
-        <settings>
-            <validation>
-                <rule name="required-entry" xsi:type="boolean">false</rule>
-            </validation>
-            <dataType>text</dataType>
-            <label translate="true">Longitude</label>
-            <dataScope>longitude</dataScope>
-        </settings>
-    </field>
-    <field name="latitude" sortOrder="80" formElement="input">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="source" xsi:type="string">store</item>
-            </item>
-        </argument>
-        <settings>
-            <validation>
-                <rule name="required-entry" xsi:type="boolean">false</rule>
-            </validation>
-            <dataType>text</dataType>
-            <label translate="true">Latitude</label>
-            <dataScope>latitude</dataScope>
-        </settings>
-    </field>
+        <field formElement="imageUploader" name="image" sortOrder="40" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">store</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>ui/form/element/uploader/image</elementTmpl>
+                <dataType>string</dataType>
+                <label translate="true">Image</label>
+                <visible>true</visible>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="store/store_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Alexandr_Store/preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="address" sortOrder="50" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">store</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Address</label>
+                <dataScope>address</dataScope>
+            </settings>
+        </field>
+        <field name="longitude" sortOrder="70" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">store</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Longitude</label>
+                <dataScope>longitude</dataScope>
+            </settings>
+        </field>
+        <field name="latitude" sortOrder="80" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">store</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Latitude</label>
+                <dataScope>latitude</dataScope>
+            </settings>
+        </field>
+        <field name="store_url_key" sortOrder="90" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">store</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Url key</label>
+                <dataScope>store_url_key</dataScope>
+            </settings>
+        </field>
 <!--    <field name="storeviews" formElement="multiselect">-->
 <!--        <argument name="data" xsi:type="array">-->
 <!--            <item name="config" xsi:type="array">-->

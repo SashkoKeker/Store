@@ -9,11 +9,14 @@
         <column xsi:type="varchar" name="schedule" nullable="true" length="255" comment="Work schedule"/>
         <column xsi:type="varchar" name="longitude" nullable="true" length="64" comment="Longitude"/>
         <column xsi:type="varchar" name="latitude" nullable="true" length="64" comment="Latitude"/>
+        <column xsi:type="varchar" name="store_url_key" comment="Url key"/>
 
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
         </constraint>
-
+        <constraint xsi:type="unique" referenceId="UNIQUE">
+            <column name="store_url_key"/>
+        </constraint>
     </table>
 
 </schema>

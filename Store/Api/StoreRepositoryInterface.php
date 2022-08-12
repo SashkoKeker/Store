@@ -11,6 +11,7 @@ interface StoreRepositoryInterface
 {
     /**
      * @param int $id
+     * @param int|null $storeView_id
      * @return StoreInterface
      */
     public function get(int $id, int $storeView_id = null): StoreInterface;

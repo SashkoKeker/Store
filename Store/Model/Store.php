@@ -1,41 +1,65 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Alexandr\Store\Model;
 
 use Alexandr\Store\Api\Data\StoreInterface;
-
+use Alexandr\Store\Model\ResourceModel\Store as ResourceModel;
 use Magento\Framework\Model\AbstractModel;
 
 class Store extends AbstractModel implements StoreInterface
 {
+    /**
+     * @return void
+     */
     protected function _construct()
     {
-        $this->_init('Alexandr\Store\Model\ResourceModel\Store');
+        $this->_init(ResourceModel::class);
     }
 
+    /**
+     * @return int|string
+     */
     public function getId()
     {
         return $this->getData(StoreInterface::ID);
     }
 
-    public function getName(): string
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
     {
         return $this->getData(StoreInterface::NAME);
     }
 
-    public function setName(?string $name): void
+    /**
+     * @param string|null $name
+     * @return StoreInterface
+     */
+    public function setName(?string $name): StoreInterface
     {
         $this->setData(StoreInterface::NAME, $name);
+        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getDescription(): string
     {
         return $this->getData(StoreInterface::DESCRIPTION);
     }
 
-    public function setDescription(?string $description): void
+    /**
+     * @param string|null $description
+     * @return StoreInterface
+     */
+    public function setDescription(?string $description): StoreInterface
     {
         $this->setData(StoreInterface::DESCRIPTION, $description);
+        return $this;
     }
 
     /**
@@ -56,14 +80,22 @@ class Store extends AbstractModel implements StoreInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getAddress(): string
     {
         return $this->getData(StoreInterface::ADDRESS);
     }
 
-    public function setAddress(?string $address): void
+    /**
+     * @param string|null $address
+     * @return StoreInterface
+     */
+    public function setAddress(?string $address): StoreInterface
     {
         $this->setData(StoreInterface::ADDRESS, $address);
+        return $this;
     }
 
     public function getSchedule(): string
@@ -71,9 +103,10 @@ class Store extends AbstractModel implements StoreInterface
         return $this->getData(StoreInterface::SCHEDULE);
     }
 
-    public function setSchedule(?string $schedule): void
+    public function setSchedule(?string $schedule): StoreInterface
     {
         $this->setData(StoreInterface::SCHEDULE, $schedule);
+        return $this;
     }
 
     public function getLongitude(): string
@@ -81,9 +114,10 @@ class Store extends AbstractModel implements StoreInterface
         return $this->getData(StoreInterface::LONGITUDE);
     }
 
-    public function setLongitude(?string $longitude): void
+    public function setLongitude(?string $longitude): StoreInterface
     {
         $this->setData(StoreInterface::LONGITUDE, $longitude);
+        return $this;
     }
 
     public function getLatitude(): string
@@ -91,8 +125,30 @@ class Store extends AbstractModel implements StoreInterface
         return $this->getData(StoreInterface::LATITUDE);
     }
 
-    public function setLatitude(?string $latitude): void
+    public function setLatitude(?string $latitude): StoreInterface
     {
         $this->setData(StoreInterface::LATITUDE, $latitude);
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->getData(self::STORE_URL_KEY);
+    }
+
+    public function setUrl(string $store_url_key): StoreInterface
+    {
+        $this->setData(self::STORE_URL_KEY, $store_url_key);
+        return $this;
+    }
+
+    /**
+     * @param string $store_url_key
+     * @return StoreInterface
+     */
+    public function checkUrlKey(string $store_url_key): StoreInterface
+    {
+        $this->_init(ResourceModel::class);
+        return $this->_resource->checkUrlKey($store_url_key, );
     }
 }
