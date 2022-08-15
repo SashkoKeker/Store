@@ -17,6 +17,14 @@
         </arguments>
     </type>
 
+        <type name="Magento\Framework\Console\CommandListInterface">
+            <arguments>
+                <argument name="name" xsi:type="string">import:store:csv</argument>
+                <argument name="commands" xsi:type="array">
+                    <item name="import:store:csv" xsi:type="object">Alexandr\Store\Console\Command\ImportCSV</item>
+                </argument>
+            </arguments>
+        </type>
 
     <virtualType name="Alexandr\Store\Model\ImageUploader" type="Magento\Catalog\Model\ImageUploader">
         <arguments>
