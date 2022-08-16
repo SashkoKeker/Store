@@ -98,7 +98,10 @@ class Store extends AbstractModel implements StoreInterface
         return $this;
     }
 
-    public function getSchedule(): string
+    /**
+     * @return string|null
+     */
+    public function getSchedule(): ?string
     {
         return $this->getData(StoreInterface::SCHEDULE);
     }

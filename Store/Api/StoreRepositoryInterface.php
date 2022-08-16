@@ -5,16 +5,16 @@ namespace Alexandr\Store\Api;
 
 
 use Alexandr\Store\Api\Data\StoreInterface;
+use Alexandr\Store\Api\Data\StoreSearchResultInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 
 interface StoreRepositoryInterface
 {
     /**
-     * @param int $id
-     * @param int|null $storeView_id
+     * @param int $store_id
      * @return StoreInterface
      */
-    public function get(int $id, int $storeView_id = null): StoreInterface;
+    public function getById(int $store_id): StoreInterface;
 
     /**
      * @param SearchCriteriaInterface $searchCriteria
@@ -30,7 +30,7 @@ interface StoreRepositoryInterface
 
     /**
      * @param StoreInterface $workingHours
-     * @return bool
+     * @return void
      */
     public function delete(StoreInterface $workingHours): void;
 

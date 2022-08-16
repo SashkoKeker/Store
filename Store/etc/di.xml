@@ -1,7 +1,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Alexandr\Store\Api\Data\StoreInterface" type="Alexandr\Store\Model\Store"/>
     <preference for="Alexandr\Store\Api\StoreRepositoryInterface" type="Alexandr\Store\Model\StoreRepository"/>
-    <preference for="Alexandr\Store\Api\StoreSearchResultInterface" type="Alexandr\Store\Model\StoreSearchResult"/>
+    <preference for="Alexandr\Store\Api\Data\StoreSearchResultInterface" type="Alexandr\Store\Model\StoreSearchResult"/>
     <preference for="Alexandr\Store\Api\GeoCoderInterface" type="Alexandr\Store\Model\Source\GeoCoder"/>
     <virtualType name="Alexandr\Store\Model\ResourceModel\Store\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>

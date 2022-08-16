@@ -20,7 +20,6 @@ class ImportCSV extends Command
 
     const PATH = 'path';
 
-    const VIEW = 'view';
 
     protected $state;
 
@@ -68,12 +67,6 @@ class ImportCSV extends Command
             InputOption::VALUE_OPTIONAL,
             'Path to file'
         );
-        $this->addOption(
-            self::VIEW,
-            null,
-            InputOption::VALUE_OPTIONAL,
-            'Store view id'
-        );
 
         parent::configure();
     }
@@ -87,20 +80,18 @@ class ImportCSV extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_ADMINHTML);
-        $storeView = $input->getOption(self::VIEW);
+
         $filename = $input->getOption(self::NAME);
         $filepath = $input->getOption(self::PATH);
 
 
-
-        $this->importCSV($filename, $filepath, $storeView);
+        $this->importCSV($filename, $filepath);
     }
 
 
     public function importCSV(
         $filename,
-        $filepath,
-        $storeView
+        $filepath
     ){
         $file = $filepath . $filename;
         $csvData = fopen($file, 'r');
@@ -124,8 +115,6 @@ class ImportCSV extends Command
             $this->storeRepository->save($store);
             $store->setUrl(str_replace(' ', '', strtolower($data['name'])) . '+' . $store->getId());
             $this->storeRepository->save($store);
-
-
 
         }
     }

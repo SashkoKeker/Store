@@ -3,18 +3,18 @@
 namespace Alexandr\Store\Model;
 
 use Alexandr\Store\Api\Data\StoreInterface;
-use Alexandr\Store\Api\StoreRepositoryInterface;
-use Alexandr\Store\Api\StoreSearchResultInterface;
 use Alexandr\Store\Api\Data\StoreInterfaceFactory;
-use Alexandr\Store\Model\ResourceModel\Store\CollectionFactory;
+use Alexandr\Store\Api\Data\StoreSearchResultInterface;
+use Alexandr\Store\Api\StoreRepositoryInterface;
+use Alexandr\Store\Api\Data\StoreSearchResultInterfaceFactory;
 use Alexandr\Store\Model\ResourceModel\Store as StoreResource;
-use Magento\Framework\Api\SearchCriteriaInterface;
-use Magento\Framework\Exception\NoSuchEntityException;
-use Alexandr\Store\Model\StoreFactory;
-use Alexandr\Store\Api\StoreSearchResultInterfaceFactory;
-use Magento\Framework\Exception\StateException;
-use Magento\Framework\Event\ManagerInterface as EventManager;
+use Alexandr\Store\Model\ResourceModel\Store\CollectionFactory;
 
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Api\SearchResultsInterfaceFactory;
+use Magento\Framework\Exception\AlreadyExistsException;
+use Magento\Framework\Event\ManagerInterface as EventManager;
 
 class StoreRepository implements StoreRepositoryInterface
 {
@@ -31,46 +31,62 @@ class StoreRepository implements StoreRepositoryInterface
      */
     private $storeFactory;
     /**
-     * @var StoreSearchResultInterfaceFactory
+     * @var SearchResultsInterfaceFactory
      */
-    private StoreSearchResultInterfaceFactory $searchResultInterfaceFactory;
+    private $searchResultFactory;
     /**
      * @var EventManager
      */
     private $eventManager;
+    /**
+     * @var CollectionProcessorInterface
+     */
+    private $collectionProcessor;
 
+    /**
+     * @param StoreFactory $storeFactory
+     * @param CollectionFactory $collectionFactory
+     * @param StoreResource $storeResource
+     * @param StoreSearchResultInterfaceFactory $searchResultInterfaceFactory
+     * @param EventManager $eventManager
+     * @param CollectionProcessorInterface $collectionProcessor
+     */
     public function __construct(
         StoreFactory $storeFactory,
         CollectionFactory $collectionFactory,
         StoreResource  $storeResource,
         StoreSearchResultInterfaceFactory $searchResultInterfaceFactory,
-        EventManager $eventManager
+        EventManager $eventManager,
+        CollectionProcessorInterface $collectionProcessor
     ) {
         $this->storeFactory = $storeFactory;
         $this->collectionFactory = $collectionFactory;
         $this->storeResource = $storeResource;
-        $this->searchResultInterfaceFactory = $searchResultInterfaceFactory;
+        $this->searchResultFactory = $searchResultInterfaceFactory;
         $this->eventManager = $eventManager;
+        $this->collectionProcessor = $collectionProcessor;
     }
 
-    public function get(int $id, int $storeView_id = null): StoreInterface
+    /**
+     * @param int $store_id
+     * @return StoreInterface
+     */
+    public function getById(int $store_id): StoreInterface
     {
         $store = $this->storeFactory->create();
-        $this->storeResource->load($store, $id);
+        $this->storeResource->load($store, $store_id);
         return $store;
     }
 
+    /**
+     * @param SearchCriteriaInterface $searchCriteria
+     * @return StoreSearchResultInterface
+     */
     public function getList(SearchCriteriaInterface $searchCriteria): StoreSearchResultInterface
     {
         $collection = $this->collectionFactory->create();
-        foreach ($searchCriteria->getFilterGroups() as $filterGroup) {
-            foreach ($filterGroup->getFilters() as $filter) {
-                $condition = $filter->getConditionType() ? $filter->getConditionType() : 'eq';
-                $collection->addFieldToFilter($filter->getField(), [$condition => $filter->getValue()]);
-            }
-        }
-
-        $searchResult = $this->searchResultInterfaceFactory->create();
+        $this->collectionProcessor->process($searchCriteria, $collection);
+        $searchResult = $this->searchResultFactory->create();
         $searchResult->setSearchCriteria($searchCriteria);
         $searchResult->setItems($collection->getItems());
         $searchResult->setTotalCount($collection->getSize());
@@ -90,14 +106,24 @@ class StoreRepository implements StoreRepositoryInterface
         return $store;
     }
 
+    /**
+     * @param StoreInterface $store
+     * @return void
+     * @throws \Exception
+     */
     public function delete(StoreInterface $store) : void
     {
         $this->storeResource->delete($store);
     }
 
+    /**
+     * @param int $store_id
+     * @return void
+     * @throws \Exception
+     */
     public function deleteById(int $store_id): void
     {
-        $store = $this->get($store_id);
+        $store = $this->getById($store_id);
         $this->delete($store);
     }
 

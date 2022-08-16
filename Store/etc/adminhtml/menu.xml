@@ -3,7 +3,7 @@
     <menu>
         <add id="Alexandr_Store::menu_1" title="Alexandr store" module="Alexandr_Store" sortOrder="51" resource="Alexandr_Store::menu_1"/>
         <add id="Alexandr_Store::store" title="Test11" module="Alexandr_Store" sortOrder="10" resource="Alexandr_Store::store" parent="Alexandr_Store::menu_1" action="store/store/index"/>
-        <add id="Alexandr_Store::Test1" title="Configuration" module="Alexandr_Store" sortOrder="99" parent="Alexandr_Store::menu_1"  resource="Alexandr_Store::Test1"/>
+        <add id="Alexandr_Store::Test1" title="Configuration" module="Alexandr_Store" sortOrder="99" parent="Alexandr_Store::menu_1" action="adminhtml/system_config/edit/section/menu_1"  resource="Alexandr_Store::Test1"/>
 
     </menu>
 </config>
