@@ -8,24 +8,45 @@ use Alexandr\Store\Api\StoreRepositoryInterface;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\Serialize\Serializer\Json;
+use Alexandr\Store\Model\ConfigProvider;
 
 class Store extends Template
 {
-    private  $storeRepository;
+    /**
+     * @var StoreRepositoryInterface
+     */
+    private StoreRepositoryInterface $storeRepository;
+    /**
+     * @var Context
+     */
+    private Context $context;
+    /**
+     * @var ConfigProvider
+     */
+    private ConfigProvider $configProvider;
 
-    private $context;
-
+    /**
+     * @param Context $context
+     * @param StoreRepositoryInterface $storeRepository
+     * @param ConfigProvider $configProvider
+     * @param Json $json
+     */
     public function __construct(
         Context $context,
-        StoreRepositoryInterface $storeRepository
-//        Json $json
+        StoreRepositoryInterface $storeRepository,
+        ConfigProvider $configProvider,
+        Json $json
     ) {
         $this->storeRepository = $storeRepository;
         $this->context = $context;
-//        $this->json = $json;
+        $this->configProvider = $configProvider;
+        $this->json = $json;
         parent::__construct($context);
     }
 
+    /**
+     * @return mixed|null
+     */
     public function getStore()
     {
         $store = $this->getRequest()->getParams();
@@ -35,24 +56,33 @@ class Store extends Template
         return $store['store'];
     }
 
-//    /**
-//     * @param $store
-//     * @return string|void
-//     */
-//    public function unserializeSchedule($store)
-//    {
-//        try {
-//            $schedule = $this->json->unserialize($store->getSchedule());
-//            foreach ($schedule as & $temp) {
-//                if (!isset($tmp)) {
-//                    $tmp = "day \"" . $temp['day'] . "\" - from \"" . $temp['from'] . "\" to \"" . $temp['to'] . "\", <br/> ";
-//                } else {
-//                    $tmp = $tmp . "day \"" . $temp['day'] . "\" - from \"" . $temp['from'] . "\" to \"" . $temp['to'] . "\" <br/>";
-//                }
-//            }
-//            return $tmp;
-//        } catch (\Exception $exception) {
-//
-//        }
-//    }
+    /**
+     * @return string
+     */
+    public function getGoogleApi()
+    {
+        $apiKey = $this->configProvider->getGoogleMapsApiKey();
+        return $apiKey;
+    }
+
+    /**
+     * @param $store
+     * @return string|void
+     */
+    public function unserializeSchedule($store)
+    {
+        try {
+            $schedule = $this->json->unserialize($store->getSchedule());
+            foreach ($schedule as & $temp) {
+                if (!isset($tmp)) {
+                    $tmp = "day \"" . $temp['day'] . "\" - from \"" . $temp['from'] . "\" to \"" . $temp['to'] . "\", <br/> ";
+                } else {
+                    $tmp = $tmp . "day \"" . $temp['day'] . "\" - from \"" . $temp['from'] . "\" to \"" . $temp['to'] . "\" <br/>";
+                }
+            }
+            return $tmp;
+        } catch (\Exception $exception) {
+
+        }
+    }
 }

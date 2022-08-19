@@ -13,11 +13,26 @@ use Exception;
 
 class Upload extends Action
 {
+    /**
+     * @var StoreManagerInterface
+     */
+    protected StoreManagerInterface $storeManager;
+    /**
+     * @var FileSystem
+     */
+    protected FileSystem $fileSystem;
+    /**
+     * @var ImageUploader
+     */
+    protected ImageUploader $imageUploader;
 
-    protected $storeManager;
-    protected $fileSystem;
-    protected $imageUploader;
-
+    /**
+     * @param Context $context
+     * @param UploaderFactory $uploaderFactory
+     * @param StoreManagerInterface $storeManager
+     * @param FileSystem $fileSystem
+     * @param ImageUploader $imageUploader
+     */
     public function __construct(
         Context $context,
         UploaderFactory $uploaderFactory,
@@ -31,6 +46,9 @@ class Upload extends Action
         parent::__construct($context);
     }
 
+    /**
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Json|\Magento\Framework\Controller\Result\Json&\Magento\Framework\Controller\ResultInterface|\Magento\Framework\Controller\ResultInterface
+     */
     public function execute()
     {
         $imageId = $this->_request->getParam('param_name', 'image');

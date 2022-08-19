@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Alexandr\Store\UI\DataProvider;
 
 use Alexandr\Store\Model\ResourceModel\Store\Collection;
@@ -9,6 +11,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
 use Magento\Ui\DataProvider\ModifierPoolDataProvider;
+use Magento\Framework\Serialize\Serializer\Json;
 
 
 class StoreDataProvider extends ModifierPoolDataProvider
@@ -30,6 +33,7 @@ class StoreDataProvider extends ModifierPoolDataProvider
      */
     private $request;
 
+    private Json $json;
     /**
      * @param string $name
      * @param string $primaryFieldName
@@ -39,6 +43,7 @@ class StoreDataProvider extends ModifierPoolDataProvider
      * @param RequestInterface $request
      * @param array $meta
      * @param array $data
+     * @param Json $json
      */
     public function __construct(
         $name,
@@ -48,11 +53,13 @@ class StoreDataProvider extends ModifierPoolDataProvider
         StoreManagerInterface $storeManager,
         RequestInterface $request,
         array $meta = [],
-        array $data = []
+        array $data = [],
+        Json $json
     ) {
         $this->collection = $collectionFactory->create();
         $this->storeManager = $storeManager;
         $this->request = $request;
+        $this->json = $json;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
 
@@ -84,9 +91,16 @@ class StoreDataProvider extends ModifierPoolDataProvider
             } else {
                 $store->setName($name);
             }
-            $store->setData('store_view_id', $storeId);
+
+            if ($store->getSchedule()){
+                $schedule = $this->json->unserialize($store->getSchedule());
+
+                $store->setSchedule($schedule);
+            }
+
             $this->loadedData[$store->getId()] = $store->getData();
         }
+
         return $this->loadedData;
     }
 }

@@ -11,14 +11,29 @@ use Magento\Framework\Controller\Result\RedirectFactory;
 
 class Delete extends Action
 {
+    /**
+     * @var RedirectFactory
+     */
     protected $resultFactory;
-
+    /**
+     * @var
+     */
     protected $resultRedirectFactory;
-
+    /**
+     * @var StoreInterfaceFactory
+     */
     protected $storeFactory;
-
+    /**
+     * @var StoreRepositoryInterface
+     */
     protected $storeRepository;
 
+    /**
+     * @param Context $context
+     * @param StoreInterfaceFactory $storeFactory
+     * @param StoreRepositoryInterface $storeRepository
+     * @param RedirectFactory $resultRedirectFactory
+     */
     public function __construct(
         Context $context,
         StoreInterfaceFactory $storeFactory,
@@ -31,12 +46,14 @@ class Delete extends Action
         parent::__construct($context);
     }
 
+    /**
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
+     */
     public function execute()
     {
         $id = $this->getRequest()->getParam('entity_id');
-        $store = $this->storeRepository->get($id);
-        $this->storeRepository->delete($store);
+        $this->storeRepository->deleteById($id);
         $result = $this->resultRedirectFactory->create();
-        $result->setpath('store/store/index');
+        return $result->setpath('store/store/index');
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Alexandr\Store\Model;
 
 use Alexandr\Store\Api\Data\StoreInterface;
@@ -126,16 +128,4 @@ class StoreRepository implements StoreRepositoryInterface
         $store = $this->getById($store_id);
         $this->delete($store);
     }
-
-    /**
-     * @param string $urlKey
-     * @return StoreInterface
-     */
-    public function getByUrlKey(string $urlKey): StoreInterface
-    {
-        $collection = $this->collectionFactory->create();
-        $collection->addFieldToFilter(StoreInterface::STORE_URL_KEY , $urlKey);
-        return $collection->getLastItem();
-    }
-
 }

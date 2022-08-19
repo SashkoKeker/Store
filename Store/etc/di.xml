@@ -56,4 +56,12 @@
         </arguments>
     </type>
 
+<!--    <type name="Alexandr\Store\Model\StoreRepository">-->
+<!--        <plugin name="GenerateUrl"-->
+<!--                type="Alexandr\Store\Plugin\GenerateUrl"/>-->
+<!--    </type>-->
+    <type name="Alexandr\Store\Model\StoreRepository">
+        <plugin name="UrlGeneration"
+                type="Alexandr\Store\Plugin\UrlGeneration"/>
+    </type>
 </config>

@@ -44,12 +44,15 @@ class View implements  HttpGetActionInterface
         $this->request = $request;
     }
 
+    /**
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Redirect|\Magento\Framework\Controller\ResultInterface|\Magento\Framework\View\Result\Page
+     */
     public function execute()
     {
         $page =  $this->pageFactory->create();
-//        if ($this->configProvider->isModuleEnable() ==  false) {
-//            return $this->redirectFactory->create()->setUrl('/');
-//        }
+        if ($this->configProvider->isModuleEnable() ==  false) {
+            return $this->redirectFactory->create()->setUrl('/');
+        }
         $store = $this->request->getParam('store');
         if (!$store) {
             return $this->redirectFactory->create()->setPath('/');

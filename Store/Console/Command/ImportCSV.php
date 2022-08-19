@@ -16,31 +16,51 @@ use Alexandr\Store\Api\GeoCoderInterface;
 
 class ImportCSV extends Command
 {
+
     const NAME = 'file';
 
     const PATH = 'path';
 
+    /**
+     * @var State
+     */
+    protected State $state;
+    /**
+     * @var StoreInterfaceFactory
+     */
+    protected StoreInterfaceFactory $storeFactory;
+    /**
+     * @var Csv
+     */
+    protected Csv $scv;
+    /**
+     * @var DirectoryList
+     */
+    protected DirectoryList $directoryList;
+    /**
+     * @var GeoCoderInterface
+     */
+    protected GeoCoderInterface $geoCoder;
+    /**
+     * @var StoreRepositoryInterface
+     */
+    protected StoreRepositoryInterface $storeRepository;
 
-    protected $state;
-
-    protected $storeFactory;
-
-    protected $scv;
-
-    protected $directoryList;
-
-    protected $geoCoder;
-
-    protected $storeRepository;
-
+    /**
+     * @param State $state
+     * @param DirectoryList $directoryList
+     * @param StoreInterfaceFactory $storeInterfaceFactory
+     * @param Csv $csv
+     * @param GeoCoderInterface $geoCoder
+     * @param StoreRepositoryInterface $storeRepository
+     */
     public function __construct(
         State $state,
         DirectoryList $directoryList,
         StoreInterfaceFactory $storeInterfaceFactory,
         Csv $csv,
         GeoCoderInterface $geoCoder,
-        StoreRepositoryInterface $storeRepository,
-        $name = null
+        StoreRepositoryInterface $storeRepository
     ) {
         $this->geoCoder = $geoCoder;
         $this->storeRepository = $storeRepository;
@@ -48,9 +68,12 @@ class ImportCSV extends Command
         $this->scv = $csv;
         $this->storeFactory = $storeInterfaceFactory;
         $this->state = $state;
-        parent::__construct($name);
+        parent::__construct();
     }
 
+    /**
+     * @return void
+     */
     protected function configure()
     {
         $this->setName('import:store:csv');
@@ -88,7 +111,11 @@ class ImportCSV extends Command
         $this->importCSV($filename, $filepath);
     }
 
-
+    /**
+     * @param $filename
+     * @param $filepath
+     * @return void
+     */
     public function importCSV(
         $filename,
         $filepath
@@ -115,6 +142,7 @@ class ImportCSV extends Command
             $this->storeRepository->save($store);
             $store->setUrl(str_replace(' ', '', strtolower($data['name'])) . '+' . $store->getId());
             $this->storeRepository->save($store);
+            unset($store);
 
         }
     }

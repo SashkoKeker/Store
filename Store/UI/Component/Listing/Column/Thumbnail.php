@@ -12,11 +12,24 @@ use Magento\Framework\UrlInterface;
 class Thumbnail extends \Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail
 {
     const  ALT_FIELD = 'title';
-
-    protected $storeManager;
-
+    /**
+     * @var StoreManagerInterface
+     */
+    protected StoreManagerInterface $storeManager;
+    /**
+     * @var UrlInterface
+     */
     protected $urlBuilder;
 
+    /**
+     * @param ContextInterface $context
+     * @param UiComponentFactory $uiComponentFactory
+     * @param StoreManagerInterface $storeManager
+     * @param Image $imageHelper
+     * @param UrlInterface $urlBuilder
+     * @param array $components
+     * @param array $data
+     */
     public function __construct(
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
@@ -32,6 +45,11 @@ class Thumbnail extends \Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail
         parent::__construct($context, $uiComponentFactory, $imageHelper, $urlBuilder, $components, $data);
     }
 
+    /**
+     * @param array $dataSource
+     * @return array
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
     public function prepareDataSource(array $dataSource)
     {
         if (isset($dataSource['data']['items'])) {
@@ -56,6 +74,10 @@ class Thumbnail extends \Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail
 
     }
 
+    /**
+     * @param $row
+     * @return string|null
+     */
     protected  function  getAlt($row)
     {
         $altField = $this->getData('config/altField') ?: self::ALT_FIELD;

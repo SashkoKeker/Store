@@ -7,7 +7,7 @@ use Magento\Ui\Component\Listing\Columns\Column;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Alexandr\Store\Api\Data\StoreInterface;
-
+use Magento\Store\Model\StoreManagerInterface;
 class Actions extends Column
 {
     /**
@@ -19,6 +19,7 @@ class Actions extends Column
      */
     const URL_PATH_DELETE = 'store/store/delete';
 
+    const URL_PATH_FRONT = 'front';
     /**
      * @var UrlInterface
      */
@@ -26,6 +27,7 @@ class Actions extends Column
     /**
      * @var ContextInterface
      */
+    private $storeManager;
     protected $context;
     /**
      * @var UiComponentFactory
@@ -35,26 +37,30 @@ class Actions extends Column
     /**
      * @param ContextInterface $context
      * @param UiComponentFactory $uiComponentFactory
+     * @param UrlInterface $urlBuilder
      * @param array $components
      * @param array $data
-     * @param UrlInterface $urlBuilder
+     * @param StoreManagerInterface $storeManager
      */
     public function __construct(
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
         UrlInterface $urlBuilder,
         array $components = [],
-        array $data = []
+        array $data = [],
+        StoreManagerInterface $storeManager
     ) {
         $this->context = $context;
         $this->uiComponentFactory = $uiComponentFactory;
         $this->urlBuilder = $urlBuilder;
+        $this->storeManager = $storeManager;
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
     /**
      * @param array $dataSource
      * @return array
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function prepareDataSource(array $dataSource)
     {
@@ -76,6 +82,11 @@ class Actions extends Column
                     [StoreInterface::ID => $item[StoreInterface::ID]]
                 ),
                 'label' => __('Delete'),
+                'hidden' => false,
+            ];
+            $item[$this->getData('name')]['front'] = [
+                'href' => $this->storeManager->getDefaultStoreView()->getUrl() . self::URL_PATH_FRONT . '/' . $item['store_url_key'],
+                'label' => __('Front'),
                 'hidden' => false,
             ];
         }

@@ -4,6 +4,7 @@
  */
 
 $store = $block->getStore();
+$apiKey = $block->getGoogleApi();
 
 ?>
 <?php if ($store->getId() !== null) :?>
@@ -26,14 +27,14 @@ $store = $block->getStore();
                     <h4>No image</h4>
                 <?php endif; ?>
             </div>
-<!--            <div class="schedule">-->
-<!--                --><?php //if($store->getSchedule() !== null): ?>
-<!--                    <h3>--><?//= __("Schedule")?><!-- </h3>-->
-<!--                    <span>-->
-<!--                --><?//= $block->unserializeSchedule($store); ?>
-<!--            </span>-->
-<!--                --><?php //endif; ?>
-<!--            </div>-->
+            <div class="schedule">
+                <?php if($store->getSchedule() !== null): ?>
+                    <h3><?= __("Schedule")?> </h3>
+                    <span>
+                <?= $block->unserializeSchedule($store); ?>
+            </span>
+                <?php endif; ?>
+            </div>
             <div class="longitude">
                 <h3><?= __("Longitude: ") ?></h3>
                 <span><?= $store->getLongitude() ?></span>
@@ -44,4 +45,14 @@ $store = $block->getStore();
             </div>
         </div>
     </div>
+    <iframe
+        width="600"
+        height="450"
+        style="border:0"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps/embed/v1/place?key=<?=$apiKey?>
+    &q=<?= $store->getAddress() ?>">
+    </iframe>
 <?php endif; ?>

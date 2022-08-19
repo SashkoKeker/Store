@@ -43,6 +43,13 @@ class Edit extends Action
      */
     private $storeManager;
 
+    /**
+     * @param Context $context
+     * @param StoreInterfaceFactory $storeInterfaceFactory
+     * @param StoreRepositoryInterface $storeRepository
+     * @param StoreManagerInterface $storeManager
+     * @param PageFactory $resultPageFactory
+     */
     public function __construct(
         Context $context,
         StoreInterfaceFactory $storeInterfaceFactory,
@@ -59,41 +66,25 @@ class Edit extends Action
         $this->storeManager = $storeManager;
     }
 
+    /**
+     * @return ResponseInterface|\Magento\Framework\Controller\Result\Redirect|ResultInterface|\Magento\Framework\View\Result\Page
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
     public function execute()
     {
-        $storeViewId = $this->getRequest()->getParam('store', 0);
-        $storeView = $this->storeManager->getStore($storeViewId);
-        $this->storeManager->setCurrentStore($storeView->getCode());
+//        $storeViewId = $this->getRequest()->getParam('store', 0);
+//        $storeView = $this->storeManager->getStore($storeViewId);
+//        $this->storeManager->setCurrentStore($storeView->getCode());
 
         $id = $this->getRequest()->getParam('entity_id');
         if ($id) {
-            $store = $this->storeRepository->get($id, $storeViewId);
+            $store = $this->storeRepository->getById($id);
             if (!$store->getId()) {
                 //$this->messageManager->addErrorMessage(__('No store with that id'));
                 $resultRedirect = $this->resultRedirectFactory->create();
                 return $resultRedirect->setPath('*/*/');
             }
         }
-//        try {
-//
-//            $store = $this->storeRepository->get($id);
-//
-//            $result = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-//            $result->setActiveMenu('Alexandr_Store::menu_1')
-//                ->addBreadcrumb(__('Edit Store'), __('Store'));
-//            $result->getConfig()
-//                ->getTitle()
-//                ->prepend(__('Edit Store: %store', ['store' => $store->getId()]));
-//
-//        } catch (NoSuchEntityException $e) {
-//            $result = $this->resultRedirectFactory->create();
-//            $this->messageManager->addErrorMessage(
-//                __('Store with id "%value" does not exist.', ['value' => $id])
-//            );
-//            $result->setPath('*/*');
-//
-//        }
-//        return $result;
 
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Alexandr_Store::menu_1');

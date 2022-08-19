@@ -11,12 +11,25 @@ use Magento\Backend\App\Action\Context;
 
 class MassDelete extends Action
 {
+    /**
+     * @var Filter
+     */
     private $filter;
-
+    /**
+     * @var CollectionFactory
+     */
     private $collectionFactory;
-
+    /**
+     * @var StoreRepositoryInterface
+     */
     private $storeRepository;
 
+    /**
+     * @param Context $context
+     * @param Filter $filter
+     * @param CollectionFactory $collectionFactory
+     * @param StoreRepositoryInterface $storeRepository
+     */
     public function __construct(
         Context $context,
         Filter $filter,
@@ -29,6 +42,10 @@ class MassDelete extends Action
         $this->storeRepository = $storeRepository;
     }
 
+    /**
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
     public function execute()
     {
         $collection = $this->filter->getCollection($this->collectionFactory->create());
@@ -36,7 +53,7 @@ class MassDelete extends Action
             $this->storeRepository->delete($store);
         }
         $this->messageManager->addSuccessMessage(__('Record(s) have been deleted.'));
-        $this->_redirect("*/*/index");
+        return $this->_redirect("*/*/index");
     }
 
 }

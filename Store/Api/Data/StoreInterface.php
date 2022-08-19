@@ -74,10 +74,10 @@ interface StoreInterface
     public function getSchedule(): ?string;
 
     /**
-     * @param string|null $schedule
+     * @param $schedule
      * @return StoreInterface
      */
-    public function setSchedule(?string $schedule): StoreInterface;
+    public function setSchedule($schedule): StoreInterface;
 
     /**
      * @return string|null
@@ -111,11 +111,4 @@ interface StoreInterface
      * @return StoreInterface
      */
     public function setUrl(string $store_url_key): StoreInterface;
-
-    /**
-     * return store by url key
-     * @param string $store_url_key
-     * @return StoreInterface
-     */
-    public function checkUrlKey(string $store_url_key): StoreInterface;
 }

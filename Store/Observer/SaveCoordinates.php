@@ -2,21 +2,21 @@
 
 namespace Alexandr\Store\Observer;
 
-use Alexandr\Store\Model\Source\GeoCoder;
+use Alexandr\Store\Api\GeoCoderInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
 class SaveCoordinates implements  ObserverInterface
 {
     /**
-     * @var GeoCoder
+     * @var GeoCoderInterface
      */
     private $geoCoder;
 
     /**
-     * @param GeoCoder $geoCoder
+     * @param GeoCoderInterface $geoCoder
      */
-    public function __construct(GeoCoder $geoCoder)
+    public function __construct(GeoCoderInterface $geoCoder)
     {
         $this->geoCoder = $geoCoder;
     }

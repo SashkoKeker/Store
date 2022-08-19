@@ -106,52 +106,67 @@ class Store extends AbstractModel implements StoreInterface
         return $this->getData(StoreInterface::SCHEDULE);
     }
 
-    public function setSchedule(?string $schedule): StoreInterface
+    /**
+     * @param $schedule
+     * @return StoreInterface
+     */
+    public function setSchedule($schedule): StoreInterface
     {
         $this->setData(StoreInterface::SCHEDULE, $schedule);
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getLongitude(): string
     {
         return $this->getData(StoreInterface::LONGITUDE);
     }
 
+    /**
+     * @param string|null $longitude
+     * @return StoreInterface
+     */
     public function setLongitude(?string $longitude): StoreInterface
     {
         $this->setData(StoreInterface::LONGITUDE, $longitude);
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getLatitude(): string
     {
         return $this->getData(StoreInterface::LATITUDE);
     }
 
+    /**
+     * @param string|null $latitude
+     * @return StoreInterface
+     */
     public function setLatitude(?string $latitude): StoreInterface
     {
         $this->setData(StoreInterface::LATITUDE, $latitude);
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getUrl(): ?string
     {
         return $this->getData(self::STORE_URL_KEY);
-    }
-
-    public function setUrl(string $store_url_key): StoreInterface
-    {
-        $this->setData(self::STORE_URL_KEY, $store_url_key);
-        return $this;
     }
 
     /**
      * @param string $store_url_key
      * @return StoreInterface
      */
-    public function checkUrlKey(string $store_url_key): StoreInterface
+    public function setUrl(string $store_url_key): StoreInterface
     {
-        $this->_init(ResourceModel::class);
-        return $this->_resource->checkUrlKey($store_url_key, );
+        $this->setData(self::STORE_URL_KEY, $store_url_key);
+        return $this;
     }
 }

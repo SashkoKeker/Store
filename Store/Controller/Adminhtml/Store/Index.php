@@ -14,6 +14,9 @@ class Index extends Action
 
     const ADMIN_RESOURCE = 'Magento_Backend::system';
 
+    /**
+     * @return ResultInterface
+     */
     public function execute(): ResultInterface
     {
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
