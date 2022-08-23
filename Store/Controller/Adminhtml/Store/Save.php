@@ -5,14 +5,11 @@ namespace Alexandr\Store\Controller\Adminhtml\Store;
 use Alexandr\Store\Api\Data\StoreInterface;
 use Alexandr\Store\Api\Data\StoreInterfaceFactory;
 use Alexandr\Store\Api\StoreRepositoryInterface;
-//use Alexandr\Store\Api\Data\StoreAttributeInterfaceFactory;
-//use Alexandr\Store\Api\StoreAttributeRepositoryInterface;
 
 use Magento\Catalog\Model\ImageUploader;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\Result\RedirectFactory;
-//use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Serialize\Serializer\Json;
 
 class Save extends Action

@@ -9,7 +9,6 @@ use Magento\Framework\App\RouterInterface;
 use Magento\Framework\App\ActionFactory;
 use Magento\Framework\App\ResponseInterface;
 
-
 use Alexandr\Store\Model\ConfigProvider;
 use Alexandr\Store\Api\Data\StoreInterfaceFactory;
 use Alexandr\Store\Api\StoreRepositoryInterface;

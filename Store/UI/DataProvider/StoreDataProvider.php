@@ -9,7 +9,6 @@ use Alexandr\Store\Model\ResourceModel\Store\CollectionFactory;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
-use Magento\Ui\DataProvider\Modifier\PoolInterface;
 use Magento\Ui\DataProvider\ModifierPoolDataProvider;
 use Magento\Framework\Serialize\Serializer\Json;
 

@@ -3,8 +3,6 @@
 namespace Alexandr\Store\Controller\Adminhtml\Store;
 
 use Magento\Backend\App\Action;
-use Magento\Backend\Model\View\Result\Page;
-use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 

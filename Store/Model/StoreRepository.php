@@ -15,7 +15,6 @@ use Alexandr\Store\Model\ResourceModel\Store\CollectionFactory;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResultsInterfaceFactory;
-use Magento\Framework\Exception\AlreadyExistsException;
 use Magento\Framework\Event\ManagerInterface as EventManager;
 
 class StoreRepository implements StoreRepositoryInterface

@@ -6,11 +6,9 @@ namespace Alexandr\Store\Controller\Adminhtml\Store;
 
 use Alexandr\Store\Api\Data\StoreInterfaceFactory;
 use Alexandr\Store\Api\StoreRepositoryInterface;
-use Alexandr\Store\Model\StoreRepository;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
-use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Store\Model\StoreManagerInterface;
@@ -72,9 +70,6 @@ class Edit extends Action
      */
     public function execute()
     {
-//        $storeViewId = $this->getRequest()->getParam('store', 0);
-//        $storeView = $this->storeManager->getStore($storeViewId);
-//        $this->storeManager->setCurrentStore($storeView->getCode());
 
         $id = $this->getRequest()->getParam('entity_id');
         if ($id) {
