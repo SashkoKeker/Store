@@ -19,7 +19,6 @@ class Index extends Action
     {
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu('Alexandr_Store::menu_1');
-        //    ->addBreadcrumb(__('Store'), __('List'));
         $resultPage->getConfig()->getTitle()->prepend(__('Store locator'));
 
         return $resultPage;

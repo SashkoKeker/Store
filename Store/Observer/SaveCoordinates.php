@@ -11,7 +11,7 @@ class SaveCoordinates implements  ObserverInterface
     /**
      * @var GeoCoderInterface
      */
-    private $geoCoder;
+    private GeoCoderInterface $geoCoder;
 
     /**
      * @param GeoCoderInterface $geoCoder
