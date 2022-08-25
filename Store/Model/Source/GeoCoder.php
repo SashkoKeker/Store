@@ -39,7 +39,7 @@ class GeoCoder implements GeoCoderInterface
      */
     public function getCoordinatesByAddress(string $address)
     {
-        $apiKey = $this->configProvider->getGoogleMapsApiKey();
+
 
         try {
             $this->client->setUri(self::GOOGLE_MAPS_HOST . 'json');
@@ -64,18 +64,5 @@ class GeoCoder implements GeoCoderInterface
             throw new CouldNotSaveException(__('Google Maps API error'));
         }
 
-//        $geo = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($address).'&sensor=false&key='.$apiKey);
-//        if (strpos($geo, 'error_message')) {
-//            $coordinates = 'ErrorApi';
-//        } elseif (strpos($geo, 'ZERO_RESULTS')) {
-//            $coordinates = 'ZERO_RESULTS';
-//        } else {
-//            $geo = json_decode($geo, true);
-//            if (isset($geo['status']) && ($geo['status'] == 'OK')) {
-//                $coordinates[0] = $geo['results'][0]['geometry']['location']['lat'];
-//                $coordinates[1] = $geo['results'][0]['geometry']['location']['lng'];
-//            }
-//        }
-//        return $coordinates;
     }
 }

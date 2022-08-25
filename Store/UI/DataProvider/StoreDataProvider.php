@@ -71,7 +71,7 @@ class StoreDataProvider extends ModifierPoolDataProvider
         if (!empty($this->loadedData)) {
             return $this->loadedData;
         }
-        $storeId = $this->request->getParam('store', 0);
+
         $mediaUrl = $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
 
         $items = $this->collection->getItems();
